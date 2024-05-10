@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cancion', function (Blueprint $table) {
+        Schema::create('songs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->string('duration');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->decimal('duration');
+            $table->string('front');
             $table->string('genre');
-            $table->string('album');//provisional
-            $table->string('release_date');
-            $table->string('letter');
-            $table->string('valoration');
-            $table->string('language');
-            $table->string('composers');
+            $table->date('release_date');
+            $table->string('artists');
+            $table->string('song_route');
         });
     }
 

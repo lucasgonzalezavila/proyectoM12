@@ -1,0 +1,20 @@
+:root {
+  --fgdefault: rgba(252, 252, 252, 1);
+  --fgsubtle: rgba(152, 152, 166, 1);
+  --actionborder: rgba(235, 235, 255, 0.05);
+  --bghover: rgba(76, 78, 84, 1);
+  --section-heading-font-family: "Inter", Helvetica;
+  --section-heading-font-weight: 600;
+  --section-heading-font-size: 18px;
+  --section-heading-letter-spacing: 0px;
+  --section-heading-line-height: 24px;
+  --section-heading-font-style: normal;
+  --caption-font-family: "Inter", Helvetica;
+  --caption-font-weight: 600;
+  --caption-font-size: 10px;
+  --caption-letter-spacing: 0px;
+  --caption-line-height: 12px;
+  --caption-font-style: normal;
+  --elevation-md: 0px 2.200000047683716px 5.5px 0px rgba(0, 0, 0, 0.1);
+  --elevation-xl: 0px 8px 28px 0px rgba(0, 0, 0, 0.4);
+}

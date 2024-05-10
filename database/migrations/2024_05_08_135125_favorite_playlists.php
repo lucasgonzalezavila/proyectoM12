@@ -9,22 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('album', function (Blueprint $table) {
-            $table->id();
+    public function up(): void{
+        Schema::create('favorite_playlist', function (Blueprint $table) {
+            $table->foreignId('playlist_id')->constrained('playlist')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('duration');
-            $table->string('front');
-            $table->date('release_date');
-            $table->string('artists');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void{
-        Schema::dropIfExists('album');
+    public function down(): void
+    {
+        //
     }
 };

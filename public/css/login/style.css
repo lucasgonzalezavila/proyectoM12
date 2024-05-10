@@ -1,0 +1,221 @@
+.log-in {
+    background-color: #000000bf;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .log-in .div {
+    background-color: #000000bf;
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+  }
+
+  .log-in .overlap {
+    position: absolute;
+    width: 845px;
+    height: 1024px;
+    top: 0;
+    left: 595px;
+  }
+
+  .log-in .rectangle {
+    position: absolute;
+    width: 130px;
+    height: 52px;
+    top: 245px;
+    left: 497px;
+    background-color: #d9d9d9;
+  }
+
+  .log-in .content {
+    position: absolute;
+    width: 845px;
+    height: 1024px;
+    top: 0;
+    left: 0;
+    background-color: #171719;
+  }
+
+  .log-in .content-2 {
+    position: relative;
+    width: 691px;
+    height: 535px;
+    top: 245px;
+    left: 99px;
+  }
+
+  .log-in .a-n-no-tienes-cuenta {
+    position: absolute;
+    width: 413px;
+    top: 504px;
+    left: 2px;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: transparent;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  input{
+    color: white;
+  }
+
+  .log-in .text-wrapper {
+    color: #b9b9b9;
+  }
+
+  .log-in .span {
+    color: #000000;
+  }
+
+  .log-in .text-wrapper-2 {
+    font-family: "Poppins-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .log-in .button-create-acc {
+    position: absolute;
+    width: 391px;
+    height: 69px;
+    top: 373px;
+    left: 139px;
+  }
+
+  .log-in .overlap-group {
+    position: relative;
+    width: 389px;
+    height: 69px;
+    background-color: #b0bac366;
+    border-radius: 10px;
+  }
+
+  .log-in .text-wrapper-3 {
+    position: absolute;
+    width: 179px;
+    top: 14px;
+    left: 113px;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 26px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .log-in .password-input {
+    position: absolute;
+    width: 689px;
+    height: 109px;
+    top: 214px;
+    left: 0;
+  }
+
+  .log-in .text-wrapper-4 {
+    position: absolute;
+    width: 137px;
+    top: 0;
+    left: 2px;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .log-in .overlap-group-wrapper {
+    position: absolute;
+    width: 689px;
+    height: 74px;
+    top: 34px;
+    left: 0;
+  }
+
+  .log-in .overlap-group-2 {
+    position: relative;
+    width: 687px;
+    height: 74px;
+    border-radius: 20px;
+  }
+
+  .log-in .text-wrapper-5 {
+    position: absolute;
+    width: 278px;
+    top: 19px;
+    left: 22px;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .log-in .input {
+    position: absolute;
+    width: 687px;
+    height: 74px;
+    top: 0;
+    left: 0;
+    background-color: #b0bac366;
+    border-radius: 20px;
+  }
+
+  .log-in .email-input {
+    position: absolute;
+    width: 689px;
+    height: 109px;
+    top: 95px;
+    left: 0;
+  }
+
+  .log-in .text-wrapper-6 {
+    position: absolute;
+    width: 64px;
+    top: 0;
+    left: 2px;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .log-in .text-wrapper-7 {
+    position: absolute;
+    width: 355px;
+    top: 19px;
+    left: 22px;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .log-in .title {
+    position: absolute;
+    width: 349px;
+    top: 0;
+    left: 158px;
+    font-family: "Poppins-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 26px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .log-in .group {
+    position: absolute;
+    width: 484px;
+    height: 643px;
+    top: 152px;
+    left: 55px;
+  }

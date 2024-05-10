@@ -9,11 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('oyente', function (Blueprint $table) {
-            $table->id();
-            $table->string('lista_de_reproduccion');//provisional
+    public function up(): void{
+        Schema::create('album_songs', function (Blueprint $table) {
+            $table->foreignId('album_id')->constrained('album')->onDelete('cascade');
+            $table->foreignId('song_id')->constrained('songs')->onDelete('cascade');
         });
     }
 

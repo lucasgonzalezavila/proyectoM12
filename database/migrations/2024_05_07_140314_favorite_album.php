@@ -9,12 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('artista', function (Blueprint $table) {
-            $table->id();
-            $table->string('cancion');//provisional
-            $table->string('album');//provisional
+    public function up(): void{
+        Schema::create('favorite_album', function (Blueprint $table) {
+            $table->foreignId('album_id')->constrained('album')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
 

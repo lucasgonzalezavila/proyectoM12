@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reproduccion', function (Blueprint $table) {
+        Schema::create('playlist', function (Blueprint $table) {
             $table->id();
-            $table->string('fechainicio');//provisional
-            $table->string('duration');
-
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('songs_id')->constrained('songs')->onDelete('cascade');
+            $table->decimal('duration');
+            $table->string('front');
+            $table->integer('songs');
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        
     }
 };
