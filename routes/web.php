@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\FavoriteSongController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SongController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -28,8 +29,13 @@ Route::get('/artista', [ArtistaController::class, 'index'])->middleware(['auth',
 
 Route::get('/user', [UserController::class, 'index'])->name('user');
 
-Route::get('/add',[AddController::class, 'index']);
-Route::get('add_details', [AddDetailsController::class,'index']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/add_song', [SongController::class, 'showAddSongForm'])->name('add_song_form');
+    Route::post('/add_song', [SongController::class, 'addSong'])->name('add_song');
+});
+
+Route::get('/artistas', [ArtistaController::class, 'printArtists']);
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

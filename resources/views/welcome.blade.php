@@ -48,8 +48,8 @@
           <div class="rectangle"></div>
           <a href="/"><img class="casa" src="/img/home/icono home.png" /></a>
           <img class="line" src="img/line-7.svg" />
-          <a href="/add"><img class="aadir" src="/img/home/icono add.png" /></a>
-          <a href="/group"><img class="grupo" src="/img/home/icono grupo.png" /></a>
+          <a href="/add_song"><img class="aadir" src="/img/home/icono add.png" /></a>
+          <a href="/artistas"><img class="grupo" src="/img/home/icono grupo.png" /></a>
           
         </div>
         <div class="overlap-2">

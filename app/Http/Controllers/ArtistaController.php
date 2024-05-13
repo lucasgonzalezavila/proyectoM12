@@ -14,7 +14,24 @@ use App\Models\Playlist;
 class ArtistaController extends Controller{
     public function show($name){
         $user = User::where('name', $name)->first();
-        return view('search', compact('user'));
+    
+        // Obtener las canciones del usuario
+        $songs = Songs::where('user_id', $user->id)->get();
+    
+        // Obtener los álbumes del usuario
+        $albums= Album::where('user_id', $user->id)->get();
+
+        // Obtener las listas de reproducción del usuario
+        $playlists = Playlist::where('user_id', $user->id)->get();
+
+        return view('search', compact('user', 'songs', 'albums', 'playlists'));
+    }
+    public function printArtists() {
+        // Obtener todos los nombres de los artistas con rol 'artista'
+        $artists = User::where('role', 'artista')->pluck('name')->toArray();
+
+        // Pasar los nombres de los artistas a la vista y renderizar la vista
+        return view('artistas', ['artists' => $artists]);
     }
     public function selectuser(){
         $user = auth()->user();
