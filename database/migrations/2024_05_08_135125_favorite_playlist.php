@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void{
         Schema::create('favorite_playlist', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('playlist_id')->constrained('playlist')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('playlist', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('songs_id')->constrained('songs')->onDelete('cascade');
-            $table->decimal('duration');
-            $table->string('front');
-            $table->integer('songs');
+            $table->string('name')->unique();
+            $table->decimal('duration')->default(0);
+            $table->string('front')->nullable();
+            $table->integer('songs')->default(0);
+            $table->timestamps();
         });
     }
 

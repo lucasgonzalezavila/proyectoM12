@@ -11,21 +11,38 @@ use App\Models\Songs;
 use App\Models\Album;
 use App\Models\Playlist;
 
-class ArtistaController extends Controller{
+class PerfilController extends Controller{
     public function show($name){
-        $user = User::where('name', $name)->first();
-    
-        // Obtener las canciones del usuario
-        $songs = Songs::where('user_id', $user->id)->get();
-    
-        // Obtener los álbumes del usuario
-        $albums= Album::where('user_id', $user->id)->get();
+    // Intentar obtener el usuario por su nombre
+    $user = User::where('name', $name)->first();
 
-        // Obtener las listas de reproducción del usuario
-        $playlists = Playlist::where('user_id', $user->id)->get();
-
-        return view('search', compact('user', 'songs', 'albums', 'playlists'));
+    // Verificar si el usuario existe
+    if (!$user) {
+        return redirect()->back()->with('error', 'Usuario no encontrado.');
     }
+
+    // Intentar obtener las canciones del usuario
+    $songs = Songs::where('user_id', $user->id)->get();
+    if ($songs->isEmpty()) {
+        return redirect()->back()->with('error', 'No se encontraron canciones para este usuario.');
+    }
+
+    // Intentar obtener los álbumes del usuario
+    $albums = Album::where('user_id', $user->id)->get();
+    if ($albums->isEmpty()) {
+        return redirect()->back()->with('error', 'No se encontraron álbumes para este usuario.');
+    }
+
+    // Intentar obtener las listas de reproducción del usuario
+    $playlists = Playlist::where('user_id', $user->id)->get();
+    if ($playlists->isEmpty()) {
+        return redirect()->back()->with('error', 'No se encontraron listas de reproducción para este usuario.');
+    }
+
+    // Si todo está bien, mostrar la vista con los datos
+    return view('search', compact('user', 'songs', 'albums', 'playlists'));
+    }
+
     public function printArtists() {
         // Obtener todos los nombres de los artistas con rol 'artista'
         $artists = User::where('role', 'artista')->pluck('name')->toArray();

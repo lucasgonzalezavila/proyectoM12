@@ -51,7 +51,13 @@ class User extends Authenticatable{
     public function Favoritealbums(){
         return $this->hasMany(Favoritealbum::class);
     }
-    public function Favoriteplaylist(){
-        return $this->hasMany(Favoriteplaylist::class);
+    public function favoritePlaylists(){
+        return $this->belongsToMany(Playlist::class, 'favorite_playlist');
     }
+
+    public function playlists(){
+    return $this->hasMany(Playlist::class);
+    }
+
+    
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('release_date');
             $table->string('artists');
             $table->string('song_route');
+            $table->timestamps();
         });
     }
 

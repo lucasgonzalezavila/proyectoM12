@@ -20,5 +20,10 @@ class Songs extends Model{
     {
         return $this->hasOne(Favoritesongs::class);
     }
+    public function playlists()
+    {
+        return $this->belongsToMany(Playlist::class, 'playlist_songs', 'song_id', 'playlist_id');
+    }
+
 }
 

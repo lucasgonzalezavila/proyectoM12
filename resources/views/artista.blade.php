@@ -29,7 +29,7 @@
         <ul>
             @foreach ($playlists as $playlist)
                 <li>
-                    <p><strong>Nombre:</strong> {{ $playlist->songs }}</p>
+                    <p><strong>Nombre:</strong> {{ $playlist->name }}</p>
                 </li>
             @endforeach
         </ul>
