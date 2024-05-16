@@ -51,10 +51,7 @@
         <img src="{{ $cancion->front }}" alt="Imagen de la Canción" class="song-image">
         <div class="song-details">
             <p><strong>Título:</strong> {{ $cancion->title }}</p>
-            <p><strong>Compositores:</strong> {{ $cancion->composers }}</p>
-            <p><strong>Valoración:</strong> {{ $cancion->valoration }}</p>
             <p><strong>Duración:</strong> {{ $cancion->duration }}</p>
-            <p><strong>Idioma:</strong> {{ $cancion->language }}</p>
             <p><strong>Género:</strong> {{ $cancion->genre }}</p>
             <p><strong>Fecha de lanzamiento:</strong> {{ $cancion->release_date }}</p>
         </div>
@@ -66,6 +63,8 @@
             <input type="hidden" name="song_id" value="{{ $cancion->id }}">
             <button type="submit" class="like-button">Me gusta</button>
         </form>
+        <br>
+        <a href="{{ route('home') }}">Volver a la página principal</a>
     </div>
 </body>
 </html>

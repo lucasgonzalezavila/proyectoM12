@@ -14,16 +14,15 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\PlaylistController;
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login1',[LoginController::class, 'index']);
 
 Route::get('/cancion/{id}', [HomeController::class, 'mostrarCancion'])->name('cancion');
 
-Route::get('/album/{id}', [AlbumController::class, 'index']);
+Route::get('/album/{id}', [AlbumController::class, 'index'])->name('album');
 
-Route::get('/search/{name}', [PerfilController::class, 'show'] )->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/search/{name}', [PerfilController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/favorite-songs', [FavoriteSongController::class, 'store'])->name('favorite.songs.store');
 
@@ -38,10 +37,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/artistas', [PerfilController::class, 'printArtists']);
 
-
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'edit'])->name('profile.edit');
@@ -49,9 +45,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/settings', [SettingsController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
+    Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
+    Route::get('/albums/add-song', [AlbumController::class, 'showAddSongForm'])->name('albums.showAddSongForm');
+    Route::post('/albums/add-song', [AlbumController::class, 'addSong'])->name('albums.addSong');
+});
+
+
 Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
 Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
-
 Route::get('/playlists/add-song', [PlaylistController::class, 'showAddSongForm'])->name('playlists.showAddSongForm');
 Route::post('/playlists/add-song', [PlaylistController::class, 'addSong'])->name('playlists.addSong');
 

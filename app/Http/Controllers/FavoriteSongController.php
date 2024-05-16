@@ -7,8 +7,7 @@ use App\Models\Favoritesongs;
 
 class FavoriteSongController extends Controller
 {
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         // Validar la solicitud
         $request->validate([
             'song_id' => 'required|exists:songs,id',

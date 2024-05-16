@@ -3,23 +3,84 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Album; // Importa el modelo Album
+use App\Models\Album;
+use App\Models\Songs;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller {
     public function index($id) {
-        // Busca el álbum por su nombre
-        $Album = Album::where('id', $id)->first();
+        $album = Album::find($id);
 
-        // Verifica si se encontró el álbum
-        if ($Album) {
-            // Si se encontró, puedes pasar la información del álbum a la vista
+        if ($album) {
             return view('album', ['album' => $album]);
         } else {
-            echo "Album no encontrado";
+            return redirect()->route('albums.albumNoEncontrado');
         }
     }
 
     public function albumNoEncontrado() {
         return view('album_no_encontrado');
     }
+
+    public function create()
+    {
+        return view('create_album');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'duration' => 'required|numeric',
+            'front' => 'required|string|max:255',
+            'release_date' => 'required|date',
+            'artists' => 'required|string|max:255',
+            // Agrega aquí las reglas de validación para otros campos del formulario si es necesario
+        ]);
+
+        $user_id = auth()->id(); // Obtiene el ID del usuario autenticado
+
+        $album = new Album();
+        $album->name = $request->name;
+        $album->duration = $request->duration;
+        $album->front = $request->front;
+        $album->release_date = $request->release_date;
+        $album->artists = $request->artists;
+        $album->user_id = $user_id; // Asigna el ID del usuario autenticado al álbum
+        // Completa con otros campos del álbum si es necesario
+
+        $album->save();
+
+        return redirect()->route('albums.create')->with('success', 'Album created successfully');
+    }
+
+    public function showAddSongForm()
+    {
+        return view('add_song_to_album');
+    }
+
+    public function addSong(Request $request)
+{
+    $request->validate([
+        'album_name' => 'required|string|max:255',
+        'song_title' => 'required|string|max:255',
+    ]);
+
+    // Buscar el álbum por nombre
+    $album = Album::where('name', $request->album_name)->first();
+    if (!$album) {
+        return redirect()->route('albums.showAddSongForm')->withErrors(['album_name' => 'Album not found']);
+    }
+
+    // Buscar la canción por título
+    $song = Songs::where('title', $request->song_title)->first();
+    if (!$song) {
+        return redirect()->route('albums.showAddSongForm')->withErrors(['song_title' => 'Song not found']);
+    }
+
+    // Asociar la canción al álbum
+    $album->songs()->attach($song->id);
+
+    return redirect()->route('albums.showAddSongForm')->with('success', 'Song added to album successfully');
+}
 }

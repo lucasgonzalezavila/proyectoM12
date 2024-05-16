@@ -58,6 +58,9 @@ class User extends Authenticatable{
     public function playlists(){
     return $this->hasMany(Playlist::class);
     }
+    public function hasRole($role){
+        return $this->role === $role;
+    }
 
     
 }

@@ -8,8 +8,7 @@ use App\Models\Songs;
 
 class PlaylistController extends Controller
 {
-    public function create()
-    {
+    public function create(){
         return view('create_playlist');
     }
 
