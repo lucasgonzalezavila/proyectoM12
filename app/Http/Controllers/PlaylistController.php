@@ -8,15 +8,25 @@ use App\Models\Songs;
 
 class PlaylistController extends Controller{
 
-    public function index($id) {
+    public function index($id){
+        // Buscar la playlist por su ID
         $playlist = Playlist::find($id);
-
+    
+        // Verificar si la playlist existe
         if ($playlist) {
-            return view('playlist', ['playlist' => $playlist]);
+            // Obtener las canciones asociadas a la playlist utilizando la relación pivot
+            $songs = $playlist->songs()->get();
+    
+            // Pasar los datos de la playlist y las canciones a la vista
+            return view('playlist', compact('playlist', 'songs'));
         } else {
+            // Redirigir si la playlist no se encuentra
             return redirect()->route('albums.albumNoEncontrado');
         }
     }
+    
+    
+    
 
     public function create(){
         return view('create_playlist');

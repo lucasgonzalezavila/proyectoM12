@@ -15,11 +15,13 @@
       <div class="div-form">
         <h2>Crea tu cuenta en Mushare</h2>
         <div class="login-form">
-          <div class="user-type">
-            <input type="button" value="ARTISTA" class="btn" id="btn1" />
-            <input type="button" value="USUARIO" class="btn" id="btn2" />
-          </div>
+          
           <form method="POST" action="{{ route('register') }}" class="register-form">
+            <div class="user-type">
+              <input type="button" value="artista" class="btn" id="btn1" />
+              <input type="button" value="user" class="btn" id="btn2" />
+              <input type="hidden" name="user_type" id="user_type" value="user" />
+            </div>
             @csrf
             <label for="name">Nombre de Usuario</label>
             <input
@@ -81,5 +83,13 @@
         </div>
       </div>
     </div>
+    <script>
+      document.getElementById('btn1').addEventListener('click', function() {
+          document.getElementById('user_type').value = 'artista';
+      });
+      document.getElementById('btn2').addEventListener('click', function() {
+          document.getElementById('user_type').value = 'user';
+      });
+  </script>  
   </body>
 </html>

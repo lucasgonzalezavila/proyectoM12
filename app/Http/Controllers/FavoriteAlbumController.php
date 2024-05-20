@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FavoriteAlbum;
+use App\Models\Favoritealbum;
 
 class FavoriteAlbumController extends Controller
 {
@@ -11,7 +11,7 @@ class FavoriteAlbumController extends Controller
     {
         // Validar la solicitud
         $request->validate([
-            'album_id' => 'required|exists:albums,id',
+            'album_id' => 'required|exists:album,id',
         ]);
 
         // Verificar si el álbum ya es favorito del usuario
@@ -21,7 +21,7 @@ class FavoriteAlbumController extends Controller
 
         if ($existingFavorite) {
             // El álbum ya es favorito del usuario
-            return response()->json(['message' => 'El álbum ya es favorito.'], 422);
+            return redirect()->back()->with('error', 'El álbum ya es favorito.');
         }
 
         // Crear un nuevo favorito de álbum
@@ -30,26 +30,27 @@ class FavoriteAlbumController extends Controller
         $favorite->album_id = $request->album_id;
         $favorite->save();
 
-        // Redireccionar o devolver una respuesta JSON según sea necesario
+        // Redireccionar con un mensaje de éxito
+        return redirect()->back()->with('success', 'El álbum se ha añadido a tus favoritos.');
     }
 
     public function destroy(Request $request)
     {
         // Validar la solicitud
         $request->validate([
-            'album_id' => 'required|exists:albums,id',
+            'album_id' => 'required|exists:album,id',
         ]);
 
         // Buscar y eliminar el favorito de álbum
-        $favorite = FavoriteAlbum::where('user_id', auth()->id())
+        $favorite = Favoritealbum::where('user_id', auth()->id())
                                  ->where('album_id', $request->album_id)
                                  ->first();
 
         if ($favorite) {
             $favorite->delete();
-            return response()->json(['message' => 'El álbum se eliminó de los favoritos correctamente.']);
+            return redirect()->back()->with('success', 'El álbum se eliminó de los favoritos correctamente.');
         } else {
-            return response()->json(['message' => 'El álbum no se encontró en los favoritos.'], 404);
+            return redirect()->back()->with('error', 'El álbum no se encontró en los favoritos.');
         }
     }
 }

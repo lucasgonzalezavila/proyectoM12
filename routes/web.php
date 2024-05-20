@@ -10,6 +10,8 @@ use App\Http\Controllers\AddDetailsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\FavoriteSongController;
+use App\Http\Controllers\FavoriteAlbumController;
+use App\Http\Controllers\FavoritePlaylistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\PlaylistController;
@@ -27,6 +29,9 @@ Route::get('/playlist/{id}', [PlaylistController::class, 'index'])->name('playli
 Route::get('/search/{name}', [PerfilController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/favorite-songs', [FavoriteSongController::class, 'store'])->name('favorite.songs.store');
+Route::post('/favorite-album', [FavoriteAlbumController::class, 'store'])->name('favorite.album.store');
+Route::post('/favorite-playlist', [FavoritePlaylistController::class, 'store'])->name('favorite.playlist.store');
+
 
 Route::get('/profile', [PerfilController::class, 'index'])->middleware(['auth', 'verified'])->name('profile');
 

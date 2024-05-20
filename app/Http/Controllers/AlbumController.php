@@ -8,15 +8,22 @@ use App\Models\Songs;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller {
-    public function index($id) {
-        $album = Album::find($id);
+    public function index($id){
+    // Buscar el álbum por su ID
+    $album = Album::find($id);
 
-        if ($album) {
-            return view('album', ['album' => $album]);
-        } else {
-            return redirect()->route('albums.albumNoEncontrado');
-        }
+    // Verificar si el álbum existe
+    if ($album) {
+        // Obtener las canciones asociadas al álbum utilizando la relación pivot
+        $songs = $album->songs()->get();
+
+        // Pasar los datos del álbum y las canciones a la vista
+        return view('album', compact('album', 'songs'));
+    } else {
+        // Redirigir si el álbum no se encuentra
+        return redirect()->route('albums.albumNoEncontrado');
     }
+}
 
     public function albumNoEncontrado() {
         return view('album_no_encontrado');

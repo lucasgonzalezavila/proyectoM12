@@ -17,7 +17,7 @@
     </header>
     <div class="content">
         @if ($user->role === 'user')
-            <!-- Contenido para usuarios -->
+            <!-- Contenido para artistas -->
             <div class="songs-content">
                 <h1 class="title">Canciones Favoritas</h1>
                 @foreach ($songs as $song)
@@ -29,7 +29,7 @@
                         </div>
                         <p class="duration">{{ $song->duration }}</p>
                         <div class="sprite sprite-1"></div>
-                        <a href="" class="play" onclick=""><img src="/img/profile/Group 1.svg" onclick="" alt=""></a>
+                        <img src="/img/profile/icons8-reproducir-en-círculo-50.png" onclick="" alt="">
                     </div>
                 @endforeach
             </div>
@@ -41,21 +41,21 @@
                             <img src="{{ $album->front }}" alt="{{ $album->name }}" />
                             <div class="album-info">
                                 <p>{{ $album->name }}</p>
-                                <p>{{ $album->artist }}</p>
+                                <p>{{ $album->artists }}</p>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-            <div class="playlist-content">
+            <div class="albums-content">
                 <h1 class="title">Playlist Favoritas</h1>
-                <div class="playlists-list">
+                <div class="albums-list">
                     @foreach ($playlists as $playlist)
                         <div class="album">
                             <img src="{{ $playlist->front }}" alt="{{ $playlist->name }}" />
-                            <div class="playlist-info">
+                            <div class="album-info">
                                 <p>{{ $playlist->name }}</p>
-                                <p>{{ $playlist->artist }}</p>
+                                <p>{{ $playlist->artists }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -74,7 +74,7 @@
                         </div>
                         <p class="duration">{{ $song->duration }}</p>
                         <div class="sprite sprite-1"></div>
-                        <button class="play"><a href="/img/profile/icons8-male-user-32.png"></a></button>
+                        <img src="/img/profile/icons8-reproducir-en-círculo-50.png" onclick="" alt="">
                     </div>
                 @endforeach
             </div>
@@ -92,20 +92,20 @@
                     @endforeach
                 </div>
             </div>
-            <div class="playlist-content">
+            <div class="albums-content">
                 <h1 class="title">Playlist</h1>
-                <div class="playlists-list">
+                <div class="albums-list">
                     @foreach ($playlists as $playlist)
                         <div class="album">
                             <img src="{{ $playlist->front }}" alt="{{ $playlist->name }}" />
-                            <div class="playlist-info">
+                            <div class="album-info">
                                 <p>{{ $playlist->name }}</p>
+                                <p>{{ $playlist->artists }}</p>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-            
         @endif
     </div>
     <footer>

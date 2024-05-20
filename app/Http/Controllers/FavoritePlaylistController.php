@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FavoritePlaylist;
+use App\Models\Favoriteplaylist;
 
 class FavoritePlaylistController extends Controller
 {
@@ -11,27 +11,26 @@ class FavoritePlaylistController extends Controller
     {
         // Validar la solicitud
         $request->validate([
-            'playlist_id' => 'required|exists:playlists,id',
+            'playlist_id' => 'required|exists:playlist,id',
         ]);
 
-        // Verificar si la playlist ya es favorita del usuario
-        $existingFavorite = FavoritePlaylist::where('user_id', auth()->id())
+        // Verificar si la lista de reproducción ya es favorita del usuario
+        $existingFavorite = Favoriteplaylist::where('user_id', auth()->id())
                                           ->where('playlist_id', $request->playlist_id)
                                           ->exists();
 
         if ($existingFavorite) {
-            // La playlist ya es favorita del usuario
-            return response()->json(['message' => 'La playlist ya es favorita.'], 422);
+            // La lista de reproducción ya es favorita del usuario
+            return redirect()->back()->with('status', '¡Esta Playlist ya está en tus favoritos!');
         }
 
-        // Crear un nuevo favorito de playlist
-        $favorite = new FavoritePlaylist();
+        // Crear un nuevo favorito de lista de reproducción
+        $favorite = new Favoriteplaylist();
         $favorite->user_id = auth()->id(); // ID del usuario autenticado
         $favorite->playlist_id = $request->playlist_id;
         $favorite->save();
 
-        // Redireccionar o devolver una respuesta JSON según sea necesario
-        return response()->json(['message' => 'La playlist se agregó a los favoritos correctamente.']);
+        return redirect()->back()->with('status', '¡La Playlist se ha agregado a tus favoritos!');
     }
 
     public function destroy(Request $request)
@@ -41,16 +40,16 @@ class FavoritePlaylistController extends Controller
             'playlist_id' => 'required|exists:playlists,id',
         ]);
 
-        // Buscar y eliminar el favorito de playlist
+        // Buscar y eliminar el favorito de lista de reproducción
         $favorite = FavoritePlaylist::where('user_id', auth()->id())
                                  ->where('playlist_id', $request->playlist_id)
                                  ->first();
 
         if ($favorite) {
             $favorite->delete();
-            return response()->json(['message' => 'La playlist se eliminó de los favoritos correctamente.']);
+            return redirect()->back()->with('status', '¡La lista de reproducción se ha eliminado de tus favoritos!');
         } else {
-            return response()->json(['message' => 'La playlist no se encontró en los favoritos.'], 404);
+            return redirect()->back()->withErrors('La lista de reproducción no se encontró en tus favoritos.');
         }
     }
 }

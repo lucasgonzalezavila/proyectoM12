@@ -11,8 +11,7 @@ class HomeController extends Controller{
         return view('welcome', compact('canciones', 'offset'));
     }
     
-    public function mostrarCancion($id)
-    {
+    public function mostrarCancion($id){
         // Buscar la canción por su ID en la base de datos
         $cancion = Songs::find($id);
 

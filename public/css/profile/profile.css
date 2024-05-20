@@ -128,163 +128,74 @@ body {
 
 /* Estilos de los albums */
 
+.albums-content {
+  color: #fff;
+}
+
 .albums-list {
   display: grid;
   grid-template-columns: min-content repeat(4, 1fr);
   grid-template-rows: 1fr;
   gap: 15px;
-  background-color: #171719;
   color: #fff;
 }
 
 .album {
   display: grid;
-  /* border-color: #fff; */
-  /* border-radius: 30px 30px 30px; */
   padding: 10px;
   cursor: pointer;
   width: 255px;
   height: 257px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .album-info {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  background-color: #888484;
-  border-bottom-style: groove;
-  border-right-style: groove;
-  border-bottom-left-radius: 5%;
-  border-bottom-right-radius: 5%;
+  background-color: #8884844b;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .album-info > p:nth-child(1) {
-  color: #FCFCFC;
+  color: #fcfcfc;
   padding-top: 20px;
   padding-left: 20px;
-  backdrop-filter: blur(10px);
 }
 
 .album-info > p:nth-child(2) {
   color: #b7b7bd;
   padding-left: 20px;
   margin-top: 0;
-  backdrop-filter: blur(10px);
 }
 
 .album > img {
   width: 100%;
-  height: 110%;
+  height: 100%;
   object-fit: contain;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .album:hover {
-  transform: scale(1.1);
-  filter: sepia(40%);
-  transition: .5s;
+  .album-img {
+    filter: sepia(40%);
+    transition: 0.5s;
+  }
 }
 
-/* Estilos de playlist*/
-
-.playlists-list {
-  display: grid;
-  grid-template-columns: min-content repeat(4, 1fr);
-  grid-template-rows: 1fr;
-  gap: 15px;
-  background-color: #171719;
+.albums-content2 {
+  padding-top: 200px;
   color: #fff;
 }
-
-.playlists {
-  display: grid;
-  /* border-color: #fff; */
-  /* border-radius: 30px 30px 30px; */
-  padding: 10px;
-  cursor: pointer;
-  width: 255px;
-  height: 257px;
-}
-
-.playlist-info {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  background-color: #888484;
-  border-bottom-style: groove;
-  border-right-style: groove;
-  border-bottom-left-radius: 5%;
-  border-bottom-right-radius: 5%;
-}
-
-.playlist-info > p:nth-child(1) {
-  color: #FCFCFC;
-  padding-top: 20px;
-  padding-left: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.playlist-info > p:nth-child(2) {
-  color: #b7b7bd;
-  padding-left: 20px;
-  margin-top: 0;
-  backdrop-filter: blur(10px);
-}
-
-.playlists > img {
-  width: 100%;
-  height: 110%;
-  object-fit: contain;
-}
-
-.playlists:hover {
-  transform: scale(1.1);
-  filter: sepia(40%);
-  transition: .5s;
-}
-
-
-
-
-/* .album {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  gap: 20px;
-} */
-
-/* .album {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-} */
-/* 
-.thumbnail img {
-  width: 100%;
-  display: block;
-} */
-/* 
-.content {
-  padding: 10px;
-} */
-
-/* .playButton {
-  background-color: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  display: block;
-  width: 100%;
-} */
-
-h1 {
-  margin-bottom: 30px;
-}
-
-/* Estilos del footer */
 
 .footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   justify-items: center;
+  /* min-width: 370px; */
   gap: 20px;
   padding: 20px;
   background-color: #171719;
@@ -292,10 +203,20 @@ h1 {
   border-top: 1px solid #fff;
 }
 
+.footer > img {
+  width: 30px;
+  height: 30px;
+}
+
 footer {
   position: sticky;
   bottom: 0;
 }
+
+h1 {
+  margin-bottom: 30px;
+}
+
 
 @media (max-width: 768px) {
   .header {
