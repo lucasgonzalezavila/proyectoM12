@@ -22,6 +22,8 @@ Route::get('/cancion/{id}', [HomeController::class, 'mostrarCancion'])->name('ca
 
 Route::get('/album/{id}', [AlbumController::class, 'index'])->name('album');
 
+Route::get('/playlist/{id}', [PlaylistController::class, 'index'])->name('playlist');
+
 Route::get('/search/{name}', [PerfilController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/favorite-songs', [FavoriteSongController::class, 'store'])->name('favorite.songs.store');

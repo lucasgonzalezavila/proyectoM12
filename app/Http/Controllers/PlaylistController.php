@@ -6,8 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Models\Songs;
 
-class PlaylistController extends Controller
-{
+class PlaylistController extends Controller{
+
+    public function index($id) {
+        $playlist = Playlist::find($id);
+
+        if ($playlist) {
+            return view('playlist', ['playlist' => $playlist]);
+        } else {
+            return redirect()->route('albums.albumNoEncontrado');
+        }
+    }
+
     public function create(){
         return view('create_playlist');
     }
