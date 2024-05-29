@@ -20,7 +20,7 @@
             <div class="user-type">
               <input type="button" value="artista" class="btn" id="btn1" />
               <input type="button" value="user" class="btn" id="btn2" />
-              <input type="hidden" name="user_type" id="user_type" value="user" />
+              <input type="hidden" name="role" id="role" value="" />
             </div>
             @csrf
             <label for="name">Nombre de Usuario</label>
@@ -85,11 +85,15 @@
     </div>
     <script>
       document.getElementById('btn1').addEventListener('click', function() {
-          document.getElementById('user_type').value = 'artista';
-      });
-      document.getElementById('btn2').addEventListener('click', function() {
-          document.getElementById('user_type').value = 'user';
-      });
+    document.getElementById('role').value = 'artista';
+    alert('Valor cambiado a "artista"');
+});
+
+document.getElementById('btn2').addEventListener('click', function() {
+    document.getElementById('role').value = 'user';
+    alert('Valor cambiado a "user"');
+});
+
   </script>  
   </body>
 </html>

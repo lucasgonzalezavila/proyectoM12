@@ -11,15 +11,6 @@
     <div class="container">
         <h1>Detalles de la Canción</h1>
 
-        <!-- Mostrar mensajes de éxito o error -->
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        
-
         <img src="{{ $cancion->front }}" alt="Imagen de la Canción" class="item-image">
         <div class="item-details">
             <p><strong>Título:</strong> {{ $cancion->title }}</p>
@@ -39,6 +30,12 @@
         @if(session('error'))
             <div class="alert alert-error">
                 {{ session('error') }}
+            </div>
+        @endif
+        <!-- Mostrar mensajes de éxito o error -->
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
         @endif
     </div>

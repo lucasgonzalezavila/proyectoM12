@@ -9,7 +9,7 @@
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif
-    @if(auth()->user()->hasRole('artista'))
+    @if(auth()->check() && auth()->user()->role === 'artista')
         <form action="{{ route('albums.store') }}" method="POST">
             @csrf
             <div>
@@ -36,7 +36,7 @@
             <button type="submit">Create Album</button>
         </form>
     @else
-        <p>Only artists can create albums.</p>
+        <p>Solo artistas pueden crear Albums.</p>
     @endif
 </body>
 </html>

@@ -16,11 +16,12 @@ class FavoriteSongController extends Controller
         // Verificar si el usuario ya tiene la canción como favorita
         $existingFavorite = Favoritesongs::where('user_id', auth()->id())
                                         ->where('song_id', $request->song_id)
-                                        ->exists();
+                                        ->first();
     
         if ($existingFavorite) {
-            // La canción ya es favorita del usuario
-            return redirect()->back()->with('error', 'La canción ya es favorita.');
+            // Si la canción ya es favorita, eliminarla de la lista de favoritos
+            $existingFavorite->delete();
+            return redirect()->back()->with('success', 'La canción ha sido eliminada de tus favoritos.');
         }
     
         // Crear un nuevo favorito
@@ -32,5 +33,6 @@ class FavoriteSongController extends Controller
         // Redireccionar de vuelta a la vista de detalles de la canción con un mensaje de éxito
         return redirect()->back()->with('success', 'La canción ha sido agregada a tus favoritos.');
     }
+    
     
 }

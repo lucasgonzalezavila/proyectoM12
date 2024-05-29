@@ -1,125 +1,84 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="/css/home/styleguide.css" />
-    <link rel="stylesheet" href="/css/home/style.css" />
-  </head>
-  <body>
-    <div class="main-MVP">
-      <div class="div">
-        <div class="overlap">
-          <div class="slider-for-you">
-            <div class="top">
-              <div class="section-title">Top 10 España</div>
-              <div class="topnav-icon-button">
-                <div class="icon"><img class="icon-arrow-left" src="/img/home/icono flecha derecha.png" /></div>
-              </div>
-              <div class="icon-wrapper">
-                <div class="img-wrapper"><img class="img" src="/img/home/icono flecha izquierda.png" /></div>
-              </div>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/home/style.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <a href="/">
+                <div class="icon">
+                    <img class="headerImg" src="/img/home/mushare-high-resolution-logo-white-transparent.svg"
+                        alt="" />
+                </div>
+            </a>
+            <div class="searchBar">
+                <input id="inputSearch" type="text" placeholder="Buscar" />
             </div>
-            <div class="container">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach($canciones as $cancion)
-                <a href="/cancion/{{ $cancion->id }}">
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
-                <div class="mb-4">
-                <img src="{{ $cancion->image }}" alt="" class="object-cover h-40 w-full rounded-lg mb-2">
+            <a href="/profile">
+                <div class="profile">
+                    <img class="headerImg" src="/img/home/icons8-usuario-masculino-en-círculo-60.png" alt="" />
                 </div>
-                <div class="flex flex-col justify-between">
-                <div>
-                <h2 class="text-xl font-semibold mb-2">{{ $cancion->title }}</h2>
-                <p>{{ $cancion->composers }}</p>
+            </a>
+            <a href="/dashboard">
+                <div class="notifications">
+                    <img class="headerImg" src="/img/home/icons8-recordatorios-de-citas-48.png" alt="" />
                 </div>
-                <div class="flex justify-between items-center">
-                <p>{{ $cancion->valoration }}</p>
-                <p>{{ $cancion->duration }}</p>
-                </div>
-                <button class="btn">Play</button>
-                </div>
-                </div>
-                </a>
+            </a>
+        </div>
+    </header>
+    <main>
+        <div class="albums-content">
+            <div class="title">
+                <h1 class="title-text">Canciones</h1>
+            </div>
+            <div class="arrows"></div>
+            <div class="albums-list">
+                @foreach ($canciones as $cancion)
+                    <a href="/cancion/{{ $cancion->id }}">
+                        <div class="album">
+                            <img class="album-img" src="{{ $cancion->image }}" alt="{{$cancion->title}}" />
+                            <!-- <button></button> -->
+                            <div class="album-info">
+                                <p>
+                                    <{{ $cancion->title }} /p>
+                                        <p>{{ $cancion->composers }}</p>
+                            </div>
+                        </div>
+                    </a>
                 @endforeach
-                </div>
             </div>
-          </div>
-          <div class="rectangle"></div>
-          <a href="/"><img class="casa" src="/img/home/icono home.png" /></a>
-          <img class="line" src="img/line-7.svg" />
-          <a href="/add_song"><img class="aadir" src="/img/home/icono add.png" /></a>
-          <a href="/artistas"><img class="grupo" src="/img/home/icono grupo.png" /></a>
-          
         </div>
-        <div class="overlap-2">
-          <div class="group">
-            <div class="div-2">
-              <div class="frame">
-                <div class="div-2">
-                  <div class="group-wrapper">
-                    <div class="div-2">
-                      <div class="frame-2">
-                        <div class="group-2"></div>
-                        <a href="/"><img class="group-3" src="/img/home/Icono mushare.png" /></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <input class="topnav-bar-input" id="searchInput" placeholder="Search"></input>
-            <ul id="searchResults"></ul> 
-          </div>
-          <a href="/profile"><img class="usuario" src="/img/home/icono perfil.png" /></a>
-          <a href="/dashboard"><img class="recordatorios" src="/img/home/icono notificacion.png" /></a>
-          <img class="line-2" src="/img/home/line-6.svg" />
-        </div>
-        <div class="overlap-3">
-          <div class="ellipse"></div>
-          <img class="flecha" src="/img/home/icono flecha desplegable.png" />
-        </div>
-        <div class="overlap-4">
-          <div class="rectangle-2"></div>
-          <div class="slider-for-you-2">
-            <div class="top">
-              <div class="section-title-2">Música que te gusta</div>
-              <div class="topnav-icon-button">
-                <div class="icon"><img class="icon-arrow-left" src="/img/home/icono flecha derecha.png" /></div>
-              </div>
-              <div class="icon-wrapper">
-                <div class="img-wrapper"><img class="img" src="/img/home/icono flecha izquierda.png" /></div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach($canciones as $cancion)
-                <a href="/cancion/{{ $cancion->id }}">
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
-                <div class="mb-4">
-                <img src="{{ $cancion->front }}" alt="" class="object-cover h-40 w-full rounded-lg mb-2">
-                </div>
-                <div class="flex flex-col justify-between">
-                <div>
-                <h2 class="text-xl font-semibold mb-2">{{ $cancion->title }}</h2>
-                <p>{{ $cancion->composers }}</p>
-                </div>
-                <div class="flex justify-between items-center">
-                <p>{{ $cancion->valoration }}</p>
-                <p>{{ $cancion->duration }}</p>
-                </div>
-                <button class="btn">Play</button>
-                </div>
-                </div>
-                </a>
+        <div class="albums-content2">
+            <h1 class="title">Álbums</h1>
+            <div class="arrows"></div>
+            <div class="albums-list">
+                @foreach ($albumes as $album)
+                    <a href="/album/{{ $album->id }}">
+                        <div class="album">
+                            <img class="album-img" src="{{ $album->front }}" alt="The Weeknd artista" />
+                            <div class="album-info">
+                                <p>{{ $album->name }}</p>
+                                <p>{{ $album->artists }}</p>
+                            </div>
+                        </div>
+                    </a>
                 @endforeach
-                </div>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <script src="/js/home/home.js"></script>
-  </body>
+    </main>
+    <footer>
+        <div class="footer">
+            <a href="/home"><img src="/img/home/icons8-casa-48.png" alt="home" /></a>
+            <a href="/add_song"><img src="/img/home/icons8-añadir-60.png" alt="añadir" /></a>
+            <a href="/artistas"><img src="/img/home/icons8-grupo-50.png" alt="perfil" /></a>
+        </div>
+    </footer>
+</body>
+
 </html>

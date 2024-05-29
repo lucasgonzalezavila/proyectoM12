@@ -18,8 +18,6 @@ use App\Http\Controllers\PlaylistController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/login1',[LoginController::class, 'index']);
-
 Route::get('/cancion/{id}', [HomeController::class, 'mostrarCancion'])->name('cancion');
 
 Route::get('/album/{id}', [AlbumController::class, 'index'])->name('album');
@@ -38,8 +36,15 @@ Route::get('/profile', [PerfilController::class, 'index'])->middleware(['auth', 
 Route::get('/user', [UserController::class, 'index'])->name('user');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/add_song', [SongController::class, 'showAddSongForm'])->name('add_song_form');
-    Route::post('/add_song', [SongController::class, 'addSong'])->name('add_song');
+    Route::group(['middleware' => function ($request, $next) {
+        if (Auth::check() && Auth::user()->role === 'user') {
+            return $next($request);
+        }
+        return redirect('/')->with('error', 'No tienes permiso para acceder a esta página.');
+    }], function () {
+        Route::get('/add_song', [SongController::class, 'showAddSongForm'])->name('add_song_form');
+        Route::post('/add_song', [SongController::class, 'addSong'])->name('add_song');
+    });
 });
 
 Route::get('/artistas', [PerfilController::class, 'printArtists']);
@@ -52,13 +57,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/settings', [SettingsController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
-    Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
-    Route::get('/albums/add-song', [AlbumController::class, 'showAddSongForm'])->name('albums.showAddSongForm');
-    Route::post('/albums/add-song', [AlbumController::class, 'addSong'])->name('albums.addSong');
+Route::middleware(['auth'])->group(function () {
+    Route::group(['middleware' => function ($request, $next) {
+        if (Auth::check() && Auth::user()->role === 'user') {
+            return $next($request);
+        }
+        return redirect('/')->with('error', 'No tienes permiso para acceder a esta página.');
+    }], function () {
+        Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
+        Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
+        Route::get('/albums/add-song', [AlbumController::class, 'showAddSongForm'])->name('albums.showAddSongForm');
+        Route::post('/albums/add-song', [AlbumController::class, 'addSong'])->name('albums.addSong');
+    });
 });
-
 
 Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
 Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
