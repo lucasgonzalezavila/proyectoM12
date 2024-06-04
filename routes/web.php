@@ -18,32 +18,31 @@ use App\Http\Controllers\PlaylistController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/cancion/{id}', [HomeController::class, 'mostrarCancion'])->name('cancion');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cancion/{id}', [HomeController::class, 'mostrarCancion'])->name('cancion');
+    Route::get('/album/{id}', [AlbumController::class, 'index'])->name('album');
+    Route::get('/playlist/{id}', [PlaylistController::class, 'index'])->name('playlist');
+    Route::get('/search/{name}', [PerfilController::class, 'show'])->name('dashboard');
 
-Route::get('/album/{id}', [AlbumController::class, 'index'])->name('album');
-
-Route::get('/playlist/{id}', [PlaylistController::class, 'index'])->name('playlist');
-
-Route::get('/search/{name}', [PerfilController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::post('/favorite-songs', [FavoriteSongController::class, 'store'])->name('favorite.songs.store');
-Route::post('/favorite-album', [FavoriteAlbumController::class, 'store'])->name('favorite.album.store');
-Route::post('/favorite-playlist', [FavoritePlaylistController::class, 'store'])->name('favorite.playlist.store');
+    Route::post('/favorite-songs', [FavoriteSongController::class, 'store'])->name('favorite.songs.store');
+    Route::post('/favorite-album', [FavoriteAlbumController::class, 'store'])->name('favorite.album.store');
+    Route::post('/favorite-playlist', [FavoritePlaylistController::class, 'store'])->name('favorite.playlist.store');
+});
 
 
 Route::get('/profile', [PerfilController::class, 'index'])->middleware(['auth', 'verified'])->name('profile');
 
-Route::get('/user', [UserController::class, 'index'])->name('user');
 
 Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => function ($request, $next) {
-        if (Auth::check() && Auth::user()->role === 'user') {
+        if (Auth::check() && Auth::user()->role === 'artista') {
             return $next($request);
         }
         return redirect('/')->with('error', 'No tienes permiso para acceder a esta página.');
     }], function () {
         Route::get('/add_song', [SongController::class, 'showAddSongForm'])->name('add_song_form');
         Route::post('/add_song', [SongController::class, 'addSong'])->name('add_song');
+        
     });
 });
 

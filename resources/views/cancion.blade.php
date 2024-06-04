@@ -11,7 +11,7 @@
     <div class="container">
         <h1>Detalles de la Canción</h1>
 
-        <img src="{{ $cancion->front }}" alt="Imagen de la Canción" class="item-image">
+        <img src="{{ asset('storage/fronts/' . $cancion->front) }}" alt="Imagen de la Canción" class="item-image">
         <div class="item-details">
             <p><strong>Título:</strong> {{ $cancion->title }}</p>
             <p><strong>Duración:</strong> {{ $cancion->duration }}</p>

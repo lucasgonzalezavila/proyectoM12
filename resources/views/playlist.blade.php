@@ -9,8 +9,8 @@
 <body>
     <div class="container">
         <h1 class="details-title">Detalles de la Playlist</h1>
-        <img src="{{ $playlist->front }}" alt="Imagen de la Playlist" class="details-image">
-        <div class="details-info">
+        <img src="{{ asset('storage/fronts/' . $playlist->front) }}" alt="Imagen de la Canción" class="details-image">
+            <div class="details-info">
             <p><strong>Título:</strong> {{ $playlist->name }}</p>
             <p><strong>Duración:</strong> {{ $playlist->duration }}</p>
             <p><strong>Artistas:</strong> {{ $playlist->artists }}</p>

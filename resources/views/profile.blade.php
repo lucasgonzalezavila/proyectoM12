@@ -22,7 +22,7 @@
                 <h1 class="title">Canciones Favoritas</h1>
                 @foreach ($songs as $song)
                     <div class="song">
-                        <div class="thumbnail"><img src="{{ $song->front }}" alt="{{ $song->title }}" /></div>
+                        <div class="thumbnail"><img src="{{ asset('storage/fronts/' . $song->front) }}" alt="{{ $song->title }}" /></div>
                         <div class="info">
                             <p>{{ $song->title }}</p>
                             <p>{{ $song->artist }}</p>
@@ -38,7 +38,7 @@
                 <div class="albums-list">
                     @foreach ($albums as $album)
                         <div class="album">
-                            <img src="{{ $album->front }}" alt="{{ $album->name }}" />
+                            <img src="{{ asset('storage/fronts/' . $album->front) }}" alt="{{ $album->name }}" />
                             <div class="album-info">
                                 <p>{{ $album->name }}</p>
                                 <p>{{ $album->artists }}</p>
@@ -52,7 +52,7 @@
                 <div class="albums-list">
                     @foreach ($playlists as $playlist)
                         <div class="album">
-                            <img src="{{ $playlist->front }}" alt="{{ $playlist->name }}" />
+                            <img src="{{ asset('storage/fronts/' . $playlist->front) }}" alt="{{ $playlist->name }}" />
                             <div class="album-info">
                                 <p>{{ $playlist->name }}</p>
                                 <p>{{ $playlist->artists }}</p>
@@ -67,7 +67,7 @@
                 <h1 class="title">Singles</h1>
                 @foreach ($songs as $song)
                     <div class="song">
-                        <div class="thumbnail"><img src="{{ $song->front }}" alt="{{ $song->title }}" /></div>
+                        <div class="thumbnail"><img src="{{ asset('storage/fronts/' . $song->front) }}" alt="{{ $song->title }}" /></div>
                         <div class="info">
                             <p>{{ $song->title }}</p>
                             <p>{{ $song->artist }}</p>
@@ -83,7 +83,7 @@
                 <div class="albums-list">
                     @foreach ($albums as $album)
                         <div class="album">
-                            <img src="{{ $album->front }}" alt="{{ $album->name }}" />
+                            <img src="{{ asset('storage/fronts/' . $album->front) }}" alt="{{ $album->name }}" />
                             <div class="album-info">
                                 <p>{{ $album->name }}</p>
                                 <p>{{ $album->artists }}</p>
@@ -97,7 +97,7 @@
                 <div class="albums-list">
                     @foreach ($playlists as $playlist)
                         <div class="album">
-                            <img src="{{ $playlist->front }}" alt="{{ $playlist->name }}" />
+                            <img src="{{ asset('storage/fronts/' . $playlist->front) }}" alt="{{ $playlist->name }}" />
                             <div class="album-info">
                                 <p>{{ $playlist->name }}</p>
                                 <p>{{ $playlist->artists }}</p>

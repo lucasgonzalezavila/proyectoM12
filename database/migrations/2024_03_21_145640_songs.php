@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('duration');
+            $table->decimal('duration', 5, 2); // Ajuste de precisión para la duración
             $table->string('front');
             $table->string('genre');
             $table->date('release_date');
@@ -24,12 +24,8 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
+    
+    public function down(): void{
+        Schema::dropIfExists('songs');
     }
 };

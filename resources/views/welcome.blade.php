@@ -42,12 +42,10 @@
                 @foreach ($canciones as $cancion)
                     <a href="/cancion/{{ $cancion->id }}">
                         <div class="album">
-                            <img class="album-img" src="{{ $cancion->image }}" alt="{{$cancion->title}}" />
-                            <!-- <button></button> -->
+                            <img class="album-img" src="{{ asset('storage/fronts/' . $cancion->front) }}" alt="{{$cancion->title}}" />
                             <div class="album-info">
-                                <p>
-                                    <{{ $cancion->title }} /p>
-                                        <p>{{ $cancion->composers }}</p>
+                                <p>{{ $cancion->title }}</p>
+                                <p>{{ $cancion->duration }}</p>
                             </div>
                         </div>
                     </a>
@@ -61,7 +59,24 @@
                 @foreach ($albumes as $album)
                     <a href="/album/{{ $album->id }}">
                         <div class="album">
-                            <img class="album-img" src="{{ $album->front }}" alt="The Weeknd artista" />
+                            <img class="album-img" src="{{ asset('storage/fronts/' . $album->front) }}" alt="The Weeknd artista" />
+                            <div class="album-info">
+                                <p>{{ $album->name }}</p>
+                                <p>{{ $album->artists }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+        <div class="albums-content2">
+            <h1 class="title">Playlist</h1>
+            <div class="arrows"></div>
+            <div class="albums-list">
+                @foreach ($albumes as $album)
+                    <a href="/album/{{ $album->id }}">
+                        <div class="album">
+                            <img class="album-img" src="{{ asset('storage/fronts/' . $album->front) }}" alt="The Weeknd artista" />
                             <div class="album-info">
                                 <p>{{ $album->name }}</p>
                                 <p>{{ $album->artists }}</p>
@@ -79,6 +94,7 @@
             <a href="/artistas"><img src="/img/home/icons8-grupo-50.png" alt="perfil" /></a>
         </div>
     </footer>
+    <script src="js/home/home.js"></script>
 </body>
 
 </html>
