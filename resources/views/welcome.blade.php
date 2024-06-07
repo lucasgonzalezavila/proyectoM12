@@ -13,8 +13,7 @@
         <div class="header">
             <a href="/">
                 <div class="icon">
-                    <img class="headerImg" src="/img/home/mushare-high-resolution-logo-white-transparent.svg"
-                        alt="" />
+                    <img class="headerImg" src="/img/home/Icono mushare.png" alt="" />
                 </div>
             </a>
             <div class="searchBar">
@@ -22,7 +21,7 @@
             </div>
             <a href="/profile">
                 <div class="profile">
-                    <img class="headerImg" src="/img/home/icons8-usuario-masculino-en-círculo-60.png" alt="" />
+                    <img class="headerImg" src="/img/home/icono perfil.png" alt="" />
                 </div>
             </a>
             <a href="/dashboard">
@@ -89,9 +88,9 @@
     </main>
     <footer>
         <div class="footer">
-            <a href="/home"><img src="/img/home/icons8-casa-48.png" alt="home" /></a>
-            <a href="/add_song"><img src="/img/home/icons8-añadir-60.png" alt="añadir" /></a>
-            <a href="/artistas"><img src="/img/home/icons8-grupo-50.png" alt="perfil" /></a>
+            <a href="/home"><img src="img/home/icono home.png" alt="home" /></a>
+            <a href="/add_song"><img src="img/home/icono add.png" alt="añadir" /></a>
+            <a href="/artistas"><img src="img/home/icono grupo.png" alt="perfil" /></a>
         </div>
     </footer>
     <script src="js/home/home.js"></script>
