@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Muestra el reproductor de música
             document.querySelector('.music-player-container').style.display = 'flex';
-            document.querySelector('.title-music-container').focus();
+            document.querySelector('.music-player-container').scrollIntoView({ behavior: 'smooth' });
 
             // Comienza a reproducir la canción
             var audioElement = document.querySelector('audio');

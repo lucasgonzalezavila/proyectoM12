@@ -10,19 +10,7 @@
     <div class="container">
         <div class="title"><h1>Add Song to Playlist</h1></div>
 
-        @if(session('success'))
-            <p>{{ session('success') }}</p>
-        @endif
-
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        
 
         <div class="form">
             <form action="{{ route('playlists.addSong') }}" method="POST">
@@ -37,6 +25,19 @@
                 <div class="button">
                     <button type="submit"><h1>Add Song to Playlist</h1></button>
                 </div>
+                @if(session('success'))
+            <p style="color: white">{{ session('success') }}</p>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li style="color: white">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
             </form>
         </div>
     </div>
