@@ -15,6 +15,7 @@ use App\Http\Controllers\FavoritePlaylistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\selectaddController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -46,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::get('/select_add_form', [selectaddController::class, 'index'])->name("select_add_form");
+Route::post('/select_view_form', [selectaddController::class, 'SelectAddView'])->name("SelectAddView");
+
 Route::get('/artistas', [PerfilController::class, 'printArtists']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -58,7 +62,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => function ($request, $next) {
-        if (Auth::check() && Auth::user()->role === 'user') {
+        if (Auth::check() && Auth::user()->role === 'artista') {
             return $next($request);
         }
         return redirect('/')->with('error', 'No tienes permiso para acceder a esta página.');

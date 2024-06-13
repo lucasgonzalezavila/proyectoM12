@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Songs;
 use App\Models\Album;
+use App\Models\Playlist;
+use App\Models\Favoritesongs;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,16 +13,18 @@ class HomeController extends Controller
     public function index($offset = 0)
     {
         $albumes = Album::all();
-
-        // Obtén las canciones en bloques de 3, comenzando desde el índice proporcionado
         $canciones = Songs::all();
+        $playlists = Playlist::all();
 
-        return view('welcome', ['canciones' => $canciones], ['albumes' => $albumes]);
+        return view('welcome', [
+            'canciones' => $canciones,
+            'albumes' => $albumes,
+            'playlists' => $playlists,
+        ]);
     }
 
     public function mostrarCancion($id)
     {
-        // Buscar la canción por su ID en la base de datos
         $cancion = Songs::find($id);
 
         if (!$cancion) {
@@ -28,11 +32,9 @@ class HomeController extends Controller
             abort(404);
         }
 
-        // Retornar la vista de los detalles de la canción, pasando la canción como dato
-        return view('cancion', compact('cancion'));
-    }
+        $user_id = auth()->id();
+        $isFavorite = Favoritesongs::where('user_id', $user_id)->where('song_id', $id)->exists();
 
-    public function mostrarAlbum(Request $request) {
-
+        return view('cancion', compact('cancion', 'isFavorite'));
     }
 }

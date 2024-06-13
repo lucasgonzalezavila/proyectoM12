@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('name')->unique();
             $table->decimal('duration')->default(0);
-            $table->string('front')->nullable();
+            $table->string('front');
             $table->integer('songs')->default(0);
             $table->timestamps();
         });

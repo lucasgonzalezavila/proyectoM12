@@ -7,8 +7,8 @@ use App\Models\Album;
 use App\Models\Songs;
 use Illuminate\Support\Facades\Auth;
 
-class AlbumController extends Controller{
-
+class AlbumController extends Controller
+{
     public function index($id)
     {
         // Buscar el álbum por su ID
@@ -23,45 +23,52 @@ class AlbumController extends Controller{
             return view('album', compact('album', 'songs'));
         } else {
             // Redirigir si el álbum no se encuentra
-            return redirect()->route('albums.albumNoEncontrado');
+            return redirect("/");
         }
-    }
-
-    public function albumNoEncontrado()
-    {
-        return view('album_no_encontrado');
     }
 
     public function create()
     {
-        return view('create_album');
+        // Verificar si el usuario es un artista
+        if (auth()->check() && auth()->user()->role === 'artista') {
+            return view('create_album');
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'duration' => 'required|numeric',
-            'front' => 'required|string|max:255',
-            'release_date' => 'required|date',
+            'duration' => 'required|numeric|min:0', // Duración no negativa
+            'front' => 'required|image|max:2048', // Validar que sea una imagen y tamaño máximo 2MB
+            'release_date' => ['required', 'date', function ($attribute, $value, $fail) {
+                if ($value > now()->format('Y-m-d')) {
+                    $fail('La fecha de lanzamiento no puede ser posterior a la fecha actual.');
+                }
+            }],
             'artists' => 'required|string|max:255',
-            // Agrega aquí las reglas de validación para otros campos del formulario si es necesario
         ]);
+        $frontPath = $request->file('front')->store('public/fronts');
+
+        $frontFilename = basename($frontPath);
 
         $user_id = auth()->id(); // Obtiene el ID del usuario autenticado
 
         $album = new Album();
         $album->name = $request->name;
         $album->duration = $request->duration;
-        $album->front = $request->front;
+        if ($request->hasFile('front')) {
+            $album->front = $frontFilename;
+        }
         $album->release_date = $request->release_date;
         $album->artists = $request->artists;
         $album->user_id = $user_id; // Asigna el ID del usuario autenticado al álbum
-        // Completa con otros campos del álbum si es necesario
 
         $album->save();
 
-        return redirect()->route('albums.create')->with('success', 'Álbum creado correctamente');
+        return redirect("/album/{{$album->id}}");
     }
 
     public function showAddSongForm()

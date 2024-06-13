@@ -21,7 +21,7 @@ class PlaylistController extends Controller{
             return view('playlist', compact('playlist', 'songs'));
         } else {
             // Redirigir si la playlist no se encuentra
-            return redirect()->route('albums.albumNoEncontrado');
+            return redirect("/");
         }
     }
     
@@ -36,14 +36,20 @@ class PlaylistController extends Controller{
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'front' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        $frontPath = $request->file('front')->store('public/fronts');
+
+        $frontFilename = basename($frontPath);
 
         $playlist = new Playlist();
         $playlist->name = $request->name;
         $playlist->user_id = auth()->id(); // assuming the user is authenticated
+        $playlist->front= $frontFilename;
         $playlist->save();
 
-        return redirect()->route('playlists.create')->with('success', 'Playlist created successfully');
+        return redirect()->route('home')->with('success', 'Canción añadida correctamente.');
     }
 
     public function showAddSongForm()

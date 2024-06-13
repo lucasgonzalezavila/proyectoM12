@@ -67,9 +67,17 @@
     </div>
     <footer>
         <div class="footer">
-            <a href="/"><img src="/img/profile/icono home.png" alt="home" /></a>
-            <a href="/add_song"><img src="/img/profile/icono add.png" alt="añadir" /></a>
-            <a href="/artistas"><img src="/img/profile/icono grupo.png" alt="perfil" /></a>
+            <a href="/"><img src="img/home/icono home.png" alt="home" /></a>
+            @auth
+                @if(auth()->user()->role === 'artista')
+                    <a href="{{ route('select_add_form') }}"><img src="/img/home/icono add.png" alt="añadir" /></a>
+                @elseif (auth()->user()->role === 'user')
+                    <a href="{{ route('playlists.create') }}"><img src="/img/home/icono add.png" alt="añadir" /></a>
+                @endif    
+                @else
+                <a href="{{ route('login') }}"><img src="/img/home/icono add.png" alt="añadir" /></a>
+            @endauth
+            <a href="/artistas"><img src="img/home/icono grupo.png" alt="perfil" /></a>
         </div>
     </footer>
 </body>

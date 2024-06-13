@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Songs;
+use Carbon\Carbon;
 
 class SongController extends Controller
 {
@@ -16,10 +17,10 @@ class SongController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'duration' => 'required|numeric',
+            'duration' => 'required|numeric|min:0', // Validación para que la duración no sea negativa
             'front' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'genre' => 'required|string',
-            'release_date' => 'required|date',
+            'release_date' => 'required|date|before_or_equal:today', // Validación para que la fecha no sea en el futuro
             'artists' => 'required|string',
             'song_route' => 'required|file|mimes:mp3,wav,aac|max:20480', // Máximo 20 MB
         ]);

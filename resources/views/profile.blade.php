@@ -60,6 +60,7 @@
                         </div>
                     @endforeach
                 </div>
+            
             </div>
         @else
             <!-- Contenido para artistas -->
@@ -68,13 +69,14 @@
                 @foreach ($songs as $song)
                     <div class="song">
                         <div class="thumbnail"><img src="{{ asset('storage/fronts/' . $song->front) }}" alt="{{ $song->title }}" /></div>
-                        <div class="info">
-                            <p>{{ $song->title }}</p>
-                            <p>{{ $song->artist }}</p>
-                        </div>
+                        <a href="/cancion/{{$song->id}}" style="text-decoration: none;color:white">
+                            <div class="info">
+                                <p>{{ $song->title }}</p>
+                                <p>{{ $song->artist }}</p>
+                            </div>
+                        </a>
                         <p class="duration">{{ $song->duration }}</p>
                         <div class="sprite sprite-1"></div>
-                        <img src="/img/profile/icons8-reproducir-en-círculo-50.png" onclick="" alt="">
                     </div>
                 @endforeach
             </div>
@@ -84,10 +86,13 @@
                     @foreach ($albums as $album)
                         <div class="album">
                             <img src="{{ asset('storage/fronts/' . $album->front) }}" alt="{{ $album->name }}" />
-                            <div class="album-info">
-                                <p>{{ $album->name }}</p>
-                                <p>{{ $album->artists }}</p>
-                            </div>
+                            <a href="/album/{{$album->id}}" style="text-decoration: none;color:white">
+                                <div class="album-info">
+                                    <p>{{ $album->name }}</p>
+                                    <p>{{ $album->artists }}</p>
+                                </div>
+                            </a>
+                            
                         </div>
                     @endforeach
                 </div>
@@ -96,6 +101,7 @@
                 <h1 class="title">Playlist</h1>
                 <div class="albums-list">
                     @foreach ($playlists as $playlist)
+                    <a href="/playlist/{{$playlist->id}}" class="link">
                         <div class="album">
                             <img src="{{ asset('storage/fronts/' . $playlist->front) }}" alt="{{ $playlist->name }}" />
                             <div class="album-info">
@@ -103,6 +109,7 @@
                                 <p>{{ $playlist->artists }}</p>
                             </div>
                         </div>
+                    </a>
                     @endforeach
                 </div>
             </div>
@@ -110,9 +117,17 @@
     </div>
     <footer>
         <div class="footer">
-            <a href="/"><img src="/img/profile/icono home.png" alt="home" /></a>
-            <a href="/add_song"><img src="/img/profile/icono add.png" alt="añadir" /></a>
-            <a href="/artistas"><img src="/img/profile/icono grupo.png" alt="perfil" /></a>
+            <a href="/"><img src="img/home/icono home.png" alt="home" /></a>
+            @auth
+                @if(auth()->user()->role === 'artista')
+                    <a href="{{ route('select_add_form') }}"><img src="/img/home/icono add.png" alt="añadir" /></a>
+                @elseif (auth()->user()->role === 'user')
+                    <a href="{{ route('playlists.create') }}"><img src="/img/home/icono add.png" alt="añadir" /></a>
+                @endif    
+                @else
+                <a href="{{ route('login') }}"><img src="/img/home/icono add.png" alt="añadir" /></a>
+            @endauth
+            <a href="/artistas"><img src="img/home/icono grupo.png" alt="perfil" /></a>
         </div>
     </footer>
 </body>
