@@ -38,7 +38,7 @@
             <img class="album-img" src="{{ asset('storage/fronts/' . $cancion->front) }}" alt="{{ $cancion->title }}" />
             <div class="album-info">
                 <p>{{ $cancion->title }}</p>
-                <p>{{ $cancion->duration }}</p>
+                <p>{{ $cancion->artists }}</p>
             </div>
         </div>
 @endforeach

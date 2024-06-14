@@ -32,6 +32,15 @@
             <p>FECHA DE LANZAMIENTO:</p>
             <p>{{ $album->release_date }}</p>
           </div>
+			<div class="details">
+			<form action="{{ route('favorite.album.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="album_id" value="{{ $album->id }}">
+        <button type="submit" class="like-button">
+            {{ $isFavorite ? 'Quitar de Me gusta' : 'Me gusta' }}
+        </button>
+    </form>
+          </div>
         </div>
       </div>
       <div class="track2">
@@ -46,7 +55,6 @@
           <p class="name">{{ $song->title }}</p>
           <p class="duration">{{ $song->duration }}</p>
           <p class="artist">{{ $song->artists }}</p>
-          <div class="sprite sprite-1" onclick="toggleSprite"></div>
         </div>
         @endforeach
         

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Models\Songs;
+use App\Models\Favoriteplaylist;
 
 class PlaylistController extends Controller{
 
@@ -16,9 +17,11 @@ class PlaylistController extends Controller{
         if ($playlist) {
             // Obtener las canciones asociadas a la playlist utilizando la relación pivot
             $songs = $playlist->songs()->get();
-    
+            $isFavorite = Favoriteplaylist::where('user_id', auth()->id())
+            ->where('playlist_id', $id)
+            ->exists();
             // Pasar los datos de la playlist y las canciones a la vista
-            return view('playlist', compact('playlist', 'songs'));
+            return view('playlist', compact('playlist', 'songs','isFavorite'));
         } else {
             // Redirigir si la playlist no se encuentra
             return redirect("/");

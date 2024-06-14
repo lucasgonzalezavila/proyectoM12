@@ -41,8 +41,14 @@
                 <img src="{{ asset('storage/fronts/' . $cancion->front) }}" alt="" />
                 <p class="name">{{ $cancion->title }}</p>
                 <p class="duration">{{ $cancion->duration }}</p>
-                <p class="artist">{{ $song->artists }}</p>
-                <div class="sprite sprite-1" onclick="toggleSprite"></div>
+                <p class="artist">{{ $cancion->artists }}</p>
+                <form action="{{ route('favorite.songs.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="song_id" value="{{ $cancion->id }}">
+                    <button type="submit" class="like-button">
+                        {{ $isFavorite ? 'Quitar de Me gusta' : 'Me gusta' }}
+                    </button>
+                </form>
             </div>
         </div>
         <div class="music-player-container" style="display: none">

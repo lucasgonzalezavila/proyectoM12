@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Album;
-use App\Models\Songs;
+use App\Models\Song;
+use App\Models\Favoritealbum;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller
@@ -19,8 +20,13 @@ class AlbumController extends Controller
             // Obtener las canciones asociadas al álbum utilizando la relación pivot
             $songs = $album->songs()->get();
 
-            // Pasar los datos del álbum y las canciones a la vista
-            return view('album', compact('album', 'songs'));
+            // Verificar si el álbum es favorito del usuario
+            $isFavorite = Favoritealbum::where('user_id', auth()->id())
+                                       ->where('album_id', $id)
+                                       ->exists();
+
+            // Pasar los datos del álbum, las canciones y el estado de favorito a la vista
+            return view('album', compact('album', 'songs', 'isFavorite'));
         } else {
             // Redirigir si el álbum no se encuentra
             return redirect("/");
@@ -50,25 +56,22 @@ class AlbumController extends Controller
             }],
             'artists' => 'required|string|max:255',
         ]);
-        $frontPath = $request->file('front')->store('public/fronts');
 
+        // Guardar la imagen de portada
+        $frontPath = $request->file('front')->store('public/fronts');
         $frontFilename = basename($frontPath);
 
-        $user_id = auth()->id(); // Obtiene el ID del usuario autenticado
-
+        // Crear el nuevo álbum
         $album = new Album();
         $album->name = $request->name;
         $album->duration = $request->duration;
-        if ($request->hasFile('front')) {
-            $album->front = $frontFilename;
-        }
+        $album->front = $frontFilename; // Asignar la imagen de portada
         $album->release_date = $request->release_date;
         $album->artists = $request->artists;
-        $album->user_id = $user_id; // Asigna el ID del usuario autenticado al álbum
-
+        $album->user_id = auth()->id(); // Asignar el ID del usuario autenticado
         $album->save();
 
-        return redirect("/album/{{$album->id}}");
+        return redirect("/album/{$album->id}");
     }
 
     public function showAddSongForm()
@@ -90,7 +93,7 @@ class AlbumController extends Controller
         }
 
         // Buscar la canción por título
-        $song = Songs::where('title', $request->song_title)->first();
+        $song = Song::where('title', $request->song_title)->first();
         if (!$song) {
             return redirect()->route('albums.showAddSongForm')->withErrors(['song_title' => 'Canción no encontrada']);
         }

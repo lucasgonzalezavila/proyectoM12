@@ -16,12 +16,13 @@ class FavoritePlaylistController extends Controller
 
         // Verificar si la lista de reproducción ya es favorita del usuario
         $existingFavorite = Favoriteplaylist::where('user_id', auth()->id())
-                                          ->where('playlist_id', $request->playlist_id)
-                                          ->exists();
+                                            ->where('playlist_id', $request->playlist_id)
+                                            ->first();
 
         if ($existingFavorite) {
-            // La lista de reproducción ya es favorita del usuario
-            return redirect()->back()->with('status', '¡Esta Playlist ya está en tus favoritos!');
+            // Si la lista de reproducción ya es favorita, eliminarla de la lista de favoritos
+            $existingFavorite->delete();
+            return redirect()->back()->with('success', 'La lista de reproducción ha sido eliminada de tus favoritos.');
         }
 
         // Crear un nuevo favorito de lista de reproducción
@@ -30,7 +31,8 @@ class FavoritePlaylistController extends Controller
         $favorite->playlist_id = $request->playlist_id;
         $favorite->save();
 
-        return redirect()->back()->with('status', '¡La Playlist se ha agregado a tus favoritos!');
+        // Redireccionar de vuelta a la vista de detalles de la lista de reproducción con un mensaje de éxito
+        return redirect()->back()->with('success', 'La lista de reproducción ha sido agregada a tus favoritos.');
     }
 
     public function destroy(Request $request)
@@ -42,12 +44,12 @@ class FavoritePlaylistController extends Controller
 
         // Buscar y eliminar el favorito de lista de reproducción
         $favorite = FavoritePlaylist::where('user_id', auth()->id())
-                                 ->where('playlist_id', $request->playlist_id)
-                                 ->first();
+                                    ->where('playlist_id', $request->playlist_id)
+                                    ->first();
 
         if ($favorite) {
             $favorite->delete();
-            return redirect()->back()->with('status', '¡La lista de reproducción se ha eliminado de tus favoritos!');
+            return redirect()->back()->with('success', 'La lista de reproducción ha sido eliminada de tus favoritos.');
         } else {
             return redirect()->back()->withErrors('La lista de reproducción no se encontró en tus favoritos.');
         }
